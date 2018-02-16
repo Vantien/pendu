@@ -1,0 +1,10 @@
+          <h3>Bienvenue {{name}} !</h3>
+          <button ng-repeat="l in alphabet" ng-click="verifLetter($event)"
+         class="btn btn-primary">{{l.letter}}</button>
+         <hr>
+         <div>
+            <button ng-repeat="x in tabWord track by $index"
+         class="btn btn-secondary btn-lg" disabled ng-bind="x"></button>
+        </div>
+          <p class="card-text">nombre essais restant: {{ letterNotGood }}/ {{nbEssai}}</p>
+          <p class="card-text" ng-class="alert">{{msg}}</p>

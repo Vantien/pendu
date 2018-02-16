@@ -1,0 +1,14 @@
+Installation du projet : jeu du pendu
+
+prérequis: avoir installer nodejs pour la gestion des paquets (npm)
+
+versions utilisées:
+
+nodejs 	      v8.9.4
+angularjs     1.5.11
+angular-route 1.5.11
+http-server   0.11.1
+
+1/ ouvrir une console de commande dans le dossier "jeuDePendu"
+
+2/ lancez la commande npm start pour lancer le jeu

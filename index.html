@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="PenduApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jeux de pendu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="container">
+   <div class="card">
+        <h1 class="card-header">Jeu de pendu</h1>
+      <div ng-view class="card-body"></div>
+    </div>
+</body>
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/angular-route/angular-route.min.js"></script>
+<script src="js/app.js"></script>
+<script src="services.js"></script>
+</html>
