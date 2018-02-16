@@ -1,6 +1,6 @@
           <h3>Bienvenue {{name}} !</h3>
           <button ng-repeat="l in alphabet" ng-click="verifLetter($event)"
-         class="btn btn-primary">{{l.letter}}</button>
+         class="btn btn-primary" ng-disabled="disableAll">{{l.letter}}</button>
          <hr>
          <div>
             <button ng-repeat="x in tabWord track by $index"

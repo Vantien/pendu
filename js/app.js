@@ -13,20 +13,23 @@ app.config(['$routeProvider', function($routeProvider) {
             .otherwise({redirectTo : '/'});
 }]);
 
-app.controller('inputController',['$scope', function($scope){
-    $scope.name = "";    
-}]);
 
 app.service('service', function(){
-        // this.alphadisabled =  function(){
-        //     for( let i=0; i < alphabet.length;i++) {
-        //         document.getElementById(alphabet[i]).setAttribute('disabled', true);   
-        //     }
-        // }
+        this.hideWord = function(secretWord) {
+                let hiddenWord = [];
+                    for (const x in secretWord) {
+                        hiddenWord.push("_ ");
+                    }
+                    return hiddenWord;
+            }
 });
 
-app.controller('penduController',['$scope','$routeParams', function($scope,$routeParams){
+app.controller('inputController',['$scope', function($scope){
+}]);
+
+app.controller('penduController',['$scope','$routeParams', 'service', function($scope,$routeParams,service){
     
+
     let word = ["bonjour", "ordinateur", "chambre", "armoire", "chaussure", "architecture", "javascript"];  
 
     let secretWord = word[Math.floor(word.length * Math.random())]; //choisit un mot aléatoire parmis notre liste
@@ -44,12 +47,9 @@ app.controller('penduController',['$scope','$routeParams', function($scope,$rout
         {"id":24, "letter":"y"},{"id":25, "letter":"z"}
     ]
     $scope.name = $routeParams.name;
- //   $scope.tabWord = Array.from(secretWord);
-    let fefe = [];
-    for (const x in secretWord) {
-        fefe.push("_ ");
-    }
-    $scope.tabWord = fefe;
+    
+    $scope.tabWord = service.hideWord(secretWord);
+    console.log(service.hideWord(secretWord));
 
     $scope.letterGood = 0;
     $scope.letterNotGood = 0;
@@ -59,15 +59,14 @@ app.controller('penduController',['$scope','$routeParams', function($scope,$rout
 
     $scope.verifLetter = function(elem) {
         
-      //  console.log(elem.id);
         let find = false;
         let letter = elem.target.innerHTML;
         elem.target.disabled = true;
-        console.log(elem.target);
+
         for (const i in secretWord) {
             if (secretWord[i] === letter) {
                 //changeLetter();
-                $scope.tabWord[i] = letter;
+                 $scope.tabWord[i] = letter;
                  find = true;
                  $scope.letterGood++;
              }
@@ -77,7 +76,8 @@ app.controller('penduController',['$scope','$routeParams', function($scope,$rout
             $scope.letterNotGood++; 
 
             if ($scope.letterNotGood === $scope.nbEssai) { //si nombre d'essais dépassent 7, afficher vous avez perdu
-
+                $scope.disableAll = "true";
+                $scope.tabWord = secretWord;
                 $scope.alert = "alert alert-danger";
                 $scope.msg = "Vous avez perdu !";
             }
@@ -86,7 +86,9 @@ app.controller('penduController',['$scope','$routeParams', function($scope,$rout
             fini = true;
             $scope.alert = "alert alert-success";
             $scope.msg = "vous avez gagné, Bravo !";
+            $scope.disableAll = "true";
         }
+        
 
     }
 }
