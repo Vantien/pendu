@@ -1,40 +1,13 @@
-var app = angular.module('PenduApp', ['ngRoute']);
-
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-            .when('/', {
-                templateUrl : 'input.html',
-                controller: 'inputController'
-             })
-            .when('/pendu/:name', {
-                templateUrl : 'pendu.html',
-                controller: 'penduController'
-            })
-            .otherwise({redirectTo : '/'});
-}]);
-
-
-app.service('service', function(){
-        this.hideWord = function(secretWord) {
-                let hiddenWord = [];
-                    for (const x in secretWord) {
-                        hiddenWord.push("_ ");
-                    }
-                    return hiddenWord;
-            }
-});
+var app = angular.module('PenduApp', ['router','services']);
 
 app.controller('inputController',['$scope', function($scope){
 }]);
 
 app.controller('penduController',['$scope','$routeParams', 'service', function($scope,$routeParams,service){
     
-
     let word = ["bonjour", "ordinateur", "chambre", "armoire", "chaussure", "architecture", "javascript"];  
-
     let secretWord = word[Math.floor(word.length * Math.random())]; //choisit un mot aléatoire parmis notre liste
     let fini = false;
-    let wordLength = secretWord.length;
     $scope.alphabet = [
         {"id":0, "letter":"a"},{"id":1, "letter":"b"},{"id":2, "letter":"c"},
         {"id":3, "letter":"d"},{"id":4, "letter":"e"},{"id":5, "letter":"f"},
@@ -49,7 +22,6 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
     $scope.name = $routeParams.name;
     
     $scope.tabWord = service.hideWord(secretWord);
-    console.log(service.hideWord(secretWord));
 
     $scope.letterGood = 0;
     $scope.letterNotGood = 0;
@@ -58,14 +30,12 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
     console.log(secretWord);
 
     $scope.verifLetter = function(elem) {
-        
+
         let find = false;
         let letter = elem.target.innerHTML;
         elem.target.disabled = true;
-
         for (const i in secretWord) {
             if (secretWord[i] === letter) {
-                //changeLetter();
                  $scope.tabWord[i] = letter;
                  find = true;
                  $scope.letterGood++;
@@ -80,16 +50,31 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
                 $scope.tabWord = secretWord;
                 $scope.alert = "alert alert-danger";
                 $scope.msg = "Vous avez perdu !";
+                $scope.btnShow = true;
             }
         }
-        if ($scope.letterGood === wordLength) { //si toutes les lettres trouvées, afficher vous avez gagné
+        if ($scope.letterGood === secretWord.length) { //si toutes les lettres trouvées, afficher vous avez gagné
             fini = true;
-            $scope.alert = "alert alert-success";
             $scope.msg = "vous avez gagné, Bravo !";
+            $scope.alert = "alert alert-success";
             $scope.disableAll = "true";
+            $scope.btnShow = true;
         }
         
 
     }
-}
+
+    $scope.restart = function() {
+
+        $scope.disableAll = "";
+        secretWord = word[Math.floor(word.length * Math.random())];
+        $scope.letterGood = 0;
+        $scope.letterNotGood = 0;
+        $scope.tabWord = service.hideWord(secretWord);
+        $scope.alert = "";
+        $scope.msg = "";
+        fini = "false";
+        $scope.btnShow = false;
+       }    
+    }
 ]);
