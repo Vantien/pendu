@@ -7,7 +7,7 @@ router.config(['$routeProvider', function($routeProvider) {
                 controller: 'inputController'
              })
             .when('/pendu/:name', {
-                templateUrl : 'pendu.html',
+                templateUrl : 'views/pendu.html',
                 controller: 'penduController'
             });
           //  .otherwise({redirectTo : '/'});

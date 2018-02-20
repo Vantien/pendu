@@ -7,5 +7,5 @@ services.service('service', function(){
                     hiddenWord.push("_ ");
                 }
                 return hiddenWord;
-        }
+        };
 });

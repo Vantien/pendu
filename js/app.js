@@ -18,7 +18,7 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
         {"id":18, "letter":"s"},{"id":19, "letter":"t"},{"id":20, "letter":"u"},
         {"id":21, "letter":"v"},{"id":22, "letter":"w"},{"id":23, "letter":"x"},
         {"id":24, "letter":"y"},{"id":25, "letter":"z"}
-    ]
+    ];
     $scope.name = $routeParams.name;
     $scope.tabWord = service.hideWord(secretWord);
     $scope.letterGood = 0;
@@ -26,7 +26,7 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
     $scope.msg = "";
     $scope.nbEssai = 7;
   //  console.log(secretWord);
-
+  
     $scope.verifLetter = function(elem) {
 
         let find = false;
@@ -58,7 +58,7 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
             $scope.disableAll = "true";
             $scope.btnShow = true;
         }
-    }
+    };
 
     $scope.restart = function() {
 
@@ -72,6 +72,6 @@ app.controller('penduController',['$scope','$routeParams', 'service', function($
         fini = "false";
         $scope.btnShow = false;
         
-       }    
+       };
     }
 ]);
